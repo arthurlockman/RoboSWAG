@@ -15,7 +15,9 @@ enum Motors
 ///The digital inputs on the robot.
 enum DigitalInputs
 {
-	kDIO1 = 1
+	kLineFollowerRightPin = 1, ///< The right pin for the line follower.
+	kLineFollowerLeftPin = 2, ///< The left pin for the line follower.
+	kLineFollowerMiddlePin = 3 ///< The middle pin for the line follower.
 };
 
 ///The Analog inputs on the robot.

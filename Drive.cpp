@@ -117,6 +117,16 @@ void Drive::DriveIndividual(int frontLeft, int frontRight,
 }
 
 /**
+ * @brief Stops the robot.
+ * @details Stops all forward or reverse motion in
+ * the robot.
+ */
+void Drive::StopRobot()
+{
+	this->PowerMotors(0, 0, 0, 0);
+}
+
+/**
  * @brief Power the motors.
  * @details This method actually drives the motors.
  * This is the only method that should be used for actually

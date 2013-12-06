@@ -20,6 +20,8 @@ public:
 
 	void DriveIndividual(int frontLeft, int frontRight, 
 		int rearLeft, int rearRight);
+	
+	void StopRobot();
 private:
 	Servo m_frontLeftMotor;
 	Servo m_frontRightMotor;
