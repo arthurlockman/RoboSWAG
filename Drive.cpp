@@ -85,7 +85,7 @@ void Drive::ArcadeDrive(PPM &ppm)
  */
 void Drive::ArcadeDrive(int moveValue, int rotateValue)
 {
-	int leftSpeed, rightSpeed = constrain(moveValue, 0, 90);
+	int leftSpeed, rightSpeed = constrain(moveValue, -90, 90);
 
 	if (rotateValue > 0)
 	{
@@ -95,7 +95,7 @@ void Drive::ArcadeDrive(int moveValue, int rotateValue)
 	else if (rotateValue < 0);
 	{
 		leftSpeed -= abs(rotateValue);
-		rightSpeed -= abs(rotateValue);
+		rightSpeed += abs(rotateValue);
 	}
 	this->PowerMotors(leftSpeed, rightSpeed, leftSpeed, rightSpeed);
 }

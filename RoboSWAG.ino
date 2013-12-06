@@ -1,6 +1,7 @@
 #include "Drive.h"
 #include "Arduino.h"
 #include "Robotmap.h"
+#include "LineFollower.h"
 #include <PPM.h>
 
 PPM ppm(2);
