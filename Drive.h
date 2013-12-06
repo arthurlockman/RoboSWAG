@@ -3,14 +3,23 @@
 
 #include "Arduino.h"
 #include "Servo.h"
+#include "PPM.h"
+#include "Robotmap.h"
 
 class Drive
 {
 public:
-	Drive(int frontLeftPin, int frontRightPin, int rearLeftPin, int rearRightPin);
+	Drive(int frontLeftPin, int frontRightPin, 
+		int rearLeftPin, int rearRightPin);
+
 	void TankDrive(int rightSpeed, int leftSpeed);
+	void TankDrive(PPM &ppm);
+
 	void ArcadeDrive(int moveValue, int rotateValue);
-	void DriveIndividual(int frontLeft, int frontRight, int rearLeft, int rearRight);
+	void ArcadeDrive(PPM &ppm);
+
+	void DriveIndividual(int frontLeft, int frontRight, 
+		int rearLeft, int rearRight);
 private:
 	Servo m_frontLeftMotor;
 	Servo m_frontRightMotor;

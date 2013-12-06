@@ -1,7 +1,8 @@
 #include "Arduino.h"
 #include "Drive.h"
 
-Drive::Drive(int frontLeftPin, int frontRightPin, int rearLeftPin, int rearRightPin)
+Drive::Drive(int frontLeftPin, int frontRightPin, 
+	int rearLeftPin, int rearRightPin)
 {
 	m_frontLeftMotor.attach(frontLeftPin);
 	m_frontRightMotor.attach(frontRightPin);
@@ -9,9 +10,21 @@ Drive::Drive(int frontLeftPin, int frontRightPin, int rearLeftPin, int rearRight
 	m_rearRightMotor.attach(rearRightPin);
 }
 
+void Drive::TankDrive(PPM &ppm)
+{
+	this->TankDrive(map(ppm.getChannel(kLeftStickY), 0, 180, -90, 90), 
+		map(ppm.getChannel(kRightStickY), 0, 180, -90, 90));
+}
+
 void Drive::TankDrive(int rightSpeed, int leftSpeed)
 {
 	this->PowerMotors(leftSpeed, rightSpeed, leftSpeed, rightSpeed);
+}
+
+void Drive::ArcadeDrive(PPM &ppm)
+{
+	this->ArcadeDrive(map(ppm.getChannel(kLeftStickY), 0, 180, -90, 90), 
+		map(ppm.getChannel(kRightStickX), 0, 180, -90, 90));
 }
 
 void Drive::ArcadeDrive(int moveValue, int rotateValue)

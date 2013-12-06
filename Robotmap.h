@@ -11,4 +11,12 @@ enum motors
 	kFeederMotor
 };
 
+enum JoystickAxis
+{
+	kRightStickX = 1,
+	kRightStickY,
+	kLeftStickY,
+	kLeftStickX
+};
+
 #endif
