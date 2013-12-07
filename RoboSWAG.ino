@@ -2,22 +2,23 @@
 #include "Arduino.h"
 #include "Robotmap.h"
 #include "LineFollower.h"
-#include <PPM.h>
+#include "UltrasonicRangefinder.h"
+#include "PPM.h"
 
 PPM controller(2);
 Drive swagDrive(kFrontLeftMotor, kFrontRightMotor, 
 	kRearLeftMotor, kRearRightMotor);
-LineFollower lineFollower(kLineFollowerLeftPin, 
-	kLineFollowerRightPin, kLineFollowerMiddlePin);
+UltrasonicRangefinder ultrasonic(A3);
 
 void setup()
 {
-
+	Serial.begin(115200);
 }
 
 void loop()
 {
-
+	Serial.println(ultrasonic.GetDistanceInInches());
+	delay(500);
 }
 
 /**
@@ -31,25 +32,25 @@ void loop()
  * @param stopOnLine Whether or not to drive until 
  * a stopping line is found. 
  */
-void trackLine(boolean stopOnLine = false)
+void trackLine(LineFollower lineFollower, Drive robotDrive, boolean stopOnLine = false)
 {
+	int stopTracking = 1;
 	if (stopOnLine)
 	{
-		int stopTracking = 1;
 		while(stopTracking)
 		{
 			switch (lineFollower.TrackLine()) {
 			    case kTrackRight:
-			    	swagDrive.TankDrive(10,90);
+			    	robotDrive.TankDrive(10,90);
 			    	break;
 			    case kTrackLeft:
-			    	swagDrive.TankDrive(90,10);
+			    	robotDrive.TankDrive(90,10);
 			    	break;
 			    case kTrackStraight:
-			    	swagDrive.TankDrive(60,60);
+			    	robotDrive.TankDrive(60,60);
 			    	break;
 			    case kStop:
-			    	swagDrive.StopRobot();
+			    	robotDrive.StopRobot();
 			    	stopTracking = 0;
 			    	break;
 			}
@@ -59,16 +60,16 @@ void trackLine(boolean stopOnLine = false)
 	{
 		switch (lineFollower.TrackLine()) {
 		    case kTrackRight:
-		    	swagDrive.TankDrive(10,90);
+		    	robotDrive.TankDrive(10,90);
 		    	break;
 		    case kTrackLeft:
-		    	swagDrive.TankDrive(90,10);
+		    	robotDrive.TankDrive(90,10);
 		    	break;
 		    case kTrackStraight:
-		    	swagDrive.TankDrive(60,60);
+		    	robotDrive.TankDrive(60,60);
 		    	break;
 		    case kStop:
-		    	swagDrive.StopRobot();
+		    	robotDrive.StopRobot();
 		    	stopTracking = 0;
 		    	break;
 		}
