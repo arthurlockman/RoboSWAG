@@ -1,14 +1,10 @@
-#include "Drive.h"
-#include "Arduino.h"
 #include "Robotmap.h"
-#include "LineFollower.h"
-#include "UltrasonicRangefinder.h"
-#include "PPM.h"
 
 PPM controller(2);
 Drive swagDrive(kFrontLeftMotor, kFrontRightMotor, 
 	kRearLeftMotor, kRearRightMotor);
 UltrasonicRangefinder ultrasonic(A3);
+LineSensor line(A1);
 
 void setup()
 {
@@ -17,7 +13,7 @@ void setup()
 
 void loop()
 {
-	Serial.println(ultrasonic.GetDistanceInInches());
+	Serial.println(line.Read());
 	delay(500);
 }
 

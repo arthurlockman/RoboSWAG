@@ -1,12 +1,7 @@
 #ifndef LINEFOLLOWER_H
 #define LINEFOLLOWER_H
 
-///Which mode the sensor will operate in.
-enum trackingMode
-{
-	kTwoTrackers = 1, ///< Operate with two line trackers.
-	kThreeTrackers ///< Operate with three line trackers.
-};
+#include "LineSensor.h"
 
 ///Which direction to track in.
 enum trackingDirection
@@ -20,19 +15,18 @@ enum trackingDirection
 class LineFollower
 {
 public:
-	LineFollower(int leftPin, int rightPin, int middlePin = 0);
+	LineFollower(int threshold, int leftPin, int rightPin, int middlePin);
 	trackingDirection TrackLine();
 	void Reset();
 private:
-	trackingMode m_mode;
 	trackingDirection m_lastDirection;
 	
-	int m_leftPin;
-	int m_rightPin;
-	int m_middlePin;
+	LineSensor m_leftSensor;
+	LineSensor m_rightSensor;
+	LineSensor m_middleSensor;
 
-	static const int kOffLine = 1;
-	static const int kOnLine = 0;
+	static const int kOffLine = 0;
+	static const int kOnLine = 1;
 };
 
 #endif

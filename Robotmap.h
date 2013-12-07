@@ -1,6 +1,12 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
+#include "LineFollower.h"
+#include "UltrasonicRangefinder.h"
+#include "PPM.h"
+#include "Drive.h"
+#include "Arduino.h"
+#include "LineSensor.h"
 ///The different motors that are attached to the robot.
 enum Motors
 {
