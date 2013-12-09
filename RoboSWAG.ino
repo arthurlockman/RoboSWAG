@@ -17,6 +17,11 @@ void loop()
 	delay(500);
 }
 
+void teleoperatedControl()
+{
+	swagDrive.TankDrive(controller);
+}
+
 /**
  * @brief Track a line.
  * @details Tracks a line on the field to a stopping
