@@ -1,0 +1,659 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"lifter",
+				"lifterMotorPort"
+			],
+			[
+				"set",
+				"SetThreshold"
+			],
+			[
+				"thre",
+				"m_threshold"
+			],
+			[
+				"get",
+				"GetDistanceInCM"
+			],
+			[
+				"ultra",
+				"UltrasonicRangefinder"
+			],
+			[
+				"m_l",
+				"m_leftPin"
+			],
+			[
+				"track",
+				"trackStraight"
+			],
+			[
+				"prev",
+				"prevError"
+			],
+			[
+				"ARM_",
+				"ARM_RELEASE"
+			],
+			[
+				"arm_",
+				"ARM_RELEASE"
+			],
+			[
+				"PICKUP",
+				"PICKUP_ENGAGE"
+			],
+			[
+				"pickup",
+				"PICKUP_MID"
+			],
+			[
+				"if",
+				"ifelse	Arduino if-else"
+			],
+			[
+				"analog",
+				"analogVal"
+			],
+			[
+				"digital",
+				"digitalRead	Arduino digitalRead"
+			],
+			[
+				"kRight",
+				"kRightSensorPort"
+			],
+			[
+				"Left",
+				"kLeftSensorPort"
+			],
+			[
+				"right",
+				"rightVal"
+			],
+			[
+				"ON",
+				"ON_LINE"
+			],
+			[
+				"OFF",
+				"OFF_LINE"
+			],
+			[
+				"PICK",
+				"PICKUP_MID"
+			],
+			[
+				"Arm",
+				"ARM_TOP"
+			],
+			[
+				"krightS",
+				"kRightServoPin"
+			],
+			[
+				"trackL",
+				"trackLast"
+			],
+			[
+				"left",
+				"leftVal"
+			],
+			[
+				"sq",
+				"square"
+			],
+			[
+				"side",
+				"sideLength"
+			],
+			[
+				"pulse",
+				"pulseWidth"
+			],
+			[
+				"read",
+				"readVcc"
+			],
+			[
+				"rearLeft",
+				"rearLeftMotor"
+			],
+			[
+				"BSBot",
+				"BSBotDrive"
+			],
+			[
+				"leftStick",
+				"leftStickY"
+			],
+			[
+				"rightSti",
+				"rightStickY"
+			],
+			[
+				"wheel",
+				"wheelBase"
+			],
+			[
+				"drive",
+				"driveRatio"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "RoboSWAG.ino",
+			"settings":
+			{
+				"buffer_size": 1642,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Manipulator.cpp",
+			"settings":
+			{
+				"buffer_size": 530,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Manipulator.h",
+			"settings":
+			{
+				"buffer_size": 345,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Robotmap.h",
+			"settings":
+			{
+				"buffer_size": 1109,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 47.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"export",
+				"Export to HTML: Show Export Menu"
+			],
+			[
+				"",
+				"Package Control: Remove Package"
+			],
+			[
+				"package",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"upgrade",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"export html",
+				"Export to HTML: Show Export Menu"
+			],
+			[
+				"export htm",
+				"Export to HTML: Show Export Menu"
+			],
+			[
+				"oackages",
+				"Package Control: List Packages"
+			],
+			[
+				"html",
+				"Export to HTML: Show Export Menu"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/arthurlockman/Documents/Arduino/Homework_15/Homework_15.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/LineFollower.cpp",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/LineSensor.cpp",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/Drive.cpp",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/LineFollower.h",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/Drive.h",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/LineSensor.h",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/UltrasonicRangefinder.h",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/UltrasonicRangefinder.cpp",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/RoboSWAG.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/PPM.cpp",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/PPM.h",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/Libraries/Drive.cpp",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/Libraries/Drive.h",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/Libraries/PPM.cpp",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Final Project/RoboSWAG/Libraries/PPM.h",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Labs/Lab_4/Lab_4.ino",
+		"/Users/arthurlockman/Desktop/RoboSWAG.ino",
+		"/Users/arthurlockman/Documents/Arduino/TestSketch/TestSketch.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Labs/Lab 3/Line Follower/Line Follower.ino",
+		"/Users/arthurlockman/Documents/Arduino/ArmControl/ArmControl.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/Homework/Homework11/Homework11.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/Homework/Homework10/Homework10.ino",
+		"/Applications/Arduino.app/Contents/Resources/Java/examples/01.Basics/AnalogReadSerial/AnalogReadSerial.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/Homework/Homework 6a/Homework 6a.ino",
+		"/Users/arthurlockman/Documents/Arduino/Homework10/Homework10.ino",
+		"/Users/arthurlockman/Documents/Arduino/Lab 4/Lab 4.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Labs/Lab 4/Lab 4.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Labs/Lab 4/Positions.h",
+		"/Users/arthurlockman/Desktop/Positions.h",
+		"/Users/arthurlockman/Downloads/br3ttb-Arduino-PID-Library-d21d7e3/PID_v1/Examples/PID_Basic/PID_Basic.ino",
+		"/Users/arthurlockman/Downloads/br3ttb-Arduino-PID-Library-d21d7e3/PID_v1/Examples/PID_AdaptiveTunings/PID_AdaptiveTunings.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Labs/Lab 2/Lab2/Lab2.ino",
+		"/Users/arthurlockman/Documents/Arduino/Lab 3/Lab 3.ino",
+		"/Users/arthurlockman/Library/Application Support/Steam/SteamApps/common/Kerbal Space Program/saves/default/persistent.sfs",
+		"/Users/arthurlockman/Desktop/derp.html",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/Homework/Homework 3/Homework 3.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Labs/Lab 1/Square/Square.ino",
+		"/Users/arthurlockman/Documents/Arduino/Homework 6a/Homework 6a.ino",
+		"/Users/arthurlockman/Documents/Arduino/Lab2/Lab2.ino",
+		"/Applications/Arduino.app/Contents/Resources/Java/libraries/PPM/examples/TankDrive/TankDrive.ino",
+		"/Applications/Arduino.app/Contents/Resources/Java/libraries/PPM/examples/ppm/ppm.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Labs/Lab 2/PWMSweep/PWMSweep.ino",
+		"/Applications/Arduino.app/Contents/Resources/Java/libraries/Servo/examples/Sweep/Sweep.ino",
+		"/Users/arthurlockman/Documents/Arduino/PWMSweep/PWMSweep.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Labs/Lab 1/Circle/Circle.ino",
+		"/Applications/Arduino.app/Contents/Resources/Java/examples/01.Basics/DigitalReadSerial/DigitalReadSerial.ino",
+		"/Users/arthurlockman/Documents/Arduino/VCC/VCC.ino",
+		"/Users/arthurlockman/Documents/Arduino/VCCTest/VCCTest.ino",
+		"/Users/arthurlockman/Documents/Arduino/Homework 3/Homework 3.ino",
+		"/Applications/Arduino.app/Contents/Resources/Java/examples/01.Basics/Blink/Blink.ino",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/1001 Group Work/Libraries/utils.h",
+		"/Applications/Arduino.app/Contents/Resources/Java/libraries/RBE-Libraries/BSBotDrive.cpp",
+		"/Applications/Arduino.app/Contents/Resources/Java/libraries/RBE-Libraries/BSBotDrive.h",
+		"/Users/arthurlockman/Library/Application Support/Sublime Text 3/Packages/Arduino-like IDE/StinoStarter.py",
+		"/Users/arthurlockman/Library/Application Support/Sublime Text 3/Packages/Arduino-like IDE/stino.settings",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/Libraries/BSBotDrive.h",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/Libraries/BSBotDrive.cpp",
+		"/Applications/Arduino.app/Contents/Resources/Java/libraries/PPM/PPM.cpp",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/Code Snippets/BSBotDrive.cpp",
+		"/Applications/Arduino.app/Contents/Resources/Java/libraries/PPM/PPM.h",
+		"/Users/arthurlockman/Dropbox/B-Term 2013/RBE 1001/Code Snippets/BSBotDrive.h",
+		"/Users/arthurlockman/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/arthurlockman/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"\"\n",
+			"true",
+			"0",
+			"default",
+			"-",
+			"tolerance",
+			"velocityLimit",
+			"max",
+			"font"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "RoboSWAG.ino",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1642,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								21,
+								21
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Arduino-like IDE/Arduino.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Manipulator.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 530,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								373,
+								373
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "Manipulator.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 345,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								344,
+								344
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Robotmap.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1109,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								504,
+								507
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 32.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.AnalogReadSerial":
+	{
+		"height": 106.0
+	},
+	"output.ArmControl":
+	{
+		"height": 106.0
+	},
+	"output.Blink":
+	{
+		"height": 106.0
+	},
+	"output.Circle":
+	{
+		"height": 100.0
+	},
+	"output.DigitalReadSerial":
+	{
+		"height": 106.0
+	},
+	"output.Homework 3":
+	{
+		"height": 106.0
+	},
+	"output.Homework 6a":
+	{
+		"height": 106.0
+	},
+	"output.Homework10":
+	{
+		"height": 106.0
+	},
+	"output.Homework11":
+	{
+		"height": 106.0
+	},
+	"output.Lab 4":
+	{
+		"height": 106.0
+	},
+	"output.Lab2":
+	{
+		"height": 292.0
+	},
+	"output.Lab_4":
+	{
+		"height": 172.0
+	},
+	"output.Libraries":
+	{
+		"height": 341.0
+	},
+	"output.Line Follower":
+	{
+		"height": 106.0
+	},
+	"output.PWMSweep":
+	{
+		"height": 106.0
+	},
+	"output.RoboSWAG":
+	{
+		"height": 232.0
+	},
+	"output.Square":
+	{
+		"height": 106.0
+	},
+	"output.Sweep":
+	{
+		"height": 106.0
+	},
+	"output.TankDrive":
+	{
+		"height": 106.0
+	},
+	"output.TestSketch":
+	{
+		"height": 106.0
+	},
+	"output.VCC":
+	{
+		"height": 106.0
+	},
+	"output.VCCTest":
+	{
+		"height": 106.0
+	},
+	"output.ppm":
+	{
+		"height": 106.0
+	},
+	"output.stino_log":
+	{
+		"height": 100.0
+	},
+	"project": "RoboSWAG.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/Documents/Arduino/Homework 3/Homework 3.ino"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 136.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

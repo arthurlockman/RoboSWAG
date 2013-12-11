@@ -13,13 +13,50 @@ void setup()
 
 void loop()
 {
-	Serial.println(line.Read());
-	delay(500);
+	autonomous(20);
+	teleop(180);
 }
 
-void teleoperatedControl()
+/**
+ * @brief Autonomous mode.
+ * @details Operates the robot in autonomous mode for
+ * the specified length of time.
+ * 
+ * @param timeSeconds The length of time to run
+ * autonomous mode for.
+ */
+void autonomous(unsigned long timeSeconds) 
 {
-	swagDrive.TankDrive(controller);
+	while(0 == controller.getChannel (1)) {}
+	unsigned long time = timeSeconds * 1000;
+	unsigned long startTime = millis ();
+
+	while (millis () - startTime <= time) 
+	{
+		//@TODO: Enter autonomous code.
+	}
+}
+
+/**
+ * @brief Teleoperated mode.
+ * @details Operates the robot in teleoperated mode for
+ * the specified length of time. Exits the program upon 
+ * completion.
+ * 
+ * @param timeSeconds The length of time to run
+ * teleoperated mode for.
+ */
+void teleop(unsigned long timeSeconds)
+{
+	unsigned long time = timeSeconds * 1000;
+	unsigned long startTime = millis();
+
+	while(millis() - startTime <= time)
+	{
+		//@TODO: Enter teleop code here.
+	}
+
+	exit(0);
 }
 
 /**
