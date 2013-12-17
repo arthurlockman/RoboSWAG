@@ -1,13 +1,16 @@
 #include "Robotmap.h"
 
 PPM controller(2);
-// UltrasonicRangefinder ultrasonic(A3);
-// LineSensor line(A1);
 
 Servo m_frontLeftMotor;
 Servo m_frontRightMotor;
 Servo m_rearLeftMotor;
 Servo m_rearRightMotor;
+Servo m_armMotor;
+Servo m_pickupMotor;
+
+LimitSwitch m_lifterLowerLimit(kLifterLowerLimit);
+LimitSwitch m_lifterUpperLimit(kLifterUpperLimit);
 
 void setup()
 {
@@ -16,12 +19,14 @@ void setup()
 	m_frontRightMotor.attach(kFrontRightMotor);
 	m_rearLeftMotor.attach(kRearLeftMotor);
 	m_rearRightMotor.attach(kRearRightMotor);
+	m_armMotor.attach(kArmMotor);
+	m_pickupMotor.attach(kFeederMotor);
 }
 
 void loop()
 {
 	//autonomous(20);
-	teleop(180);
+	teleop(500);
 }
 
 /**
@@ -61,6 +66,7 @@ void teleop(unsigned long timeSeconds)
 	while(millis() - startTime <= time)
 	{
 		ArcadeDrive(controller);
+		ManualArmControl(controller);
 	}
 
 	exit(0);
@@ -77,7 +83,8 @@ void teleop(unsigned long timeSeconds)
  * @param stopOnLine Whether or not to drive until 
  * a stopping line is found. 
  */
-void trackLine(LineFollower lineFollower, boolean stopOnLine = false)
+void trackLine(LineFollower lineFollower, 
+	boolean stopOnLine = false)
 {
 	int stopTracking = 1;
 	if (stopOnLine)
@@ -131,7 +138,8 @@ void trackLine(LineFollower lineFollower, boolean stopOnLine = false)
  * @param right The right ultrasonic sensor.
  * @param speed The speed to drive forward at. (-90 to 90).
  */
-void driveStraight(UltrasonicRangefinder left, UltrasonicRangefinder right, int speed)
+void driveStraight(UltrasonicRangefinder left, 
+	UltrasonicRangefinder right, int speed)
 {
 	int leftVal = left.GetDistanceInCM();
 	int rightVal = right.GetDistanceInCM();
@@ -151,8 +159,10 @@ void driveStraight(UltrasonicRangefinder left, UltrasonicRangefinder right, int 
  */
 void TankDrive(PPM &ppm)
 {
-	int leftVal = map(constrain((ppm.getChannel(kLeftStickY) - 90), -75, 75), -75, 75, -90, 90);
-	int rightVal = map(constrain((ppm.getChannel(kRightStickY) - 90), -75, 75), -75, 75, -90, 90);
+	int leftVal = map(constrain((ppm.getChannel(kLeftStickY) 
+		- 90), -75, 75), -75, 75, -90, 90);
+	int rightVal = map(constrain((ppm.getChannel(kRightStickY) 
+		- 90), -75, 75), -75, 75, -90, 90);
 	PowerMotors(leftVal, rightVal, leftVal, rightVal);
 }
 
@@ -184,8 +194,10 @@ void TankDrive(int rightSpeed, int leftSpeed)
  */
 void ArcadeDrive(PPM &ppm)
 {
-	int moveVal = map(constrain((ppm.getChannel(kLeftStickY) - 90), -75, 75), -75, 75, -90, 90);
-	int rotateVal = map(constrain((ppm.getChannel(kLeftStickX) - 90), -75, 75), -75, 75, -90, 90);
+	int moveVal = map(constrain((ppm.getChannel(kLeftStickY) 
+		- 90), -75, 75), -75, 75, -90, 90);
+	int rotateVal = map(constrain((ppm.getChannel(kLeftStickX) 
+		- 90), -75, 75), -75, 75, -90, 90);
 	ArcadeDrive(moveVal, rotateVal);
 }
 
@@ -203,7 +215,7 @@ void ArcadeDrive(int moveValue, int rotateValue)
 {
 	int leftSpeed = moveValue; 
 	int rightSpeed = moveValue;
-
+	
 	leftSpeed += rotateValue;
 	rightSpeed -= rotateValue;
 
@@ -256,4 +268,27 @@ void PowerMotors(int frontLeftSpeed, int frontRightSpeed,
 	m_frontRightMotor.write(90 - frontRightSpeed);
 	m_rearLeftMotor.write(rearLeftSpeed + 90);
 	m_rearRightMotor.write(90 - rearRightSpeed);
+}
+
+/**
+ * @brief Controls the manipulator with a joystick.
+ * @details Controls the manipulator using a PPM joystick. 
+ * It uses the right stick on the controller to control the
+ * arm. The X axis is used to control the speed of pickup,
+ * and the Y axis controls the arm's upward motion.
+ * 
+ * @param ppm The controller to pull the joystick values from.
+ */
+void ManualArmControl(PPM &ppm)
+{
+	int pickupSpeed = Deadband(ppm.getChannel(kRightStickX), 
+		85, 95, 90);
+	int armSpeed = Deadband(ppm.getChannel(kRightStickY), 
+		85, 95, 90);
+
+	if((m_lifterLowerLimit.Pressed() == 1) && armSpeed > 90)
+		m_armMotor.write(armSpeed);
+	else if((m_lifterLowerLimit.Pressed() != 1))
+		m_armMotor.write(armSpeed);
+	m_pickupMotor.write(pickupSpeed);
 }
