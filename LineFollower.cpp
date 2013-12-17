@@ -7,12 +7,10 @@
  *  
  * @param leftPin The pin that the leftmost sensor is on.
  * @param rightPin The pin that the rightmost sensor is on.
- * @param middlePin (Optional) The pin that the center sensor is on.
  */
-LineFollower::LineFollower(int threshold, int leftPin, int rightPin, int middlePin) :
+LineFollower::LineFollower(int threshold, int leftPin, int rightPin) :
 	m_leftSensor(leftPin, threshold),
-	m_rightSensor(rightPin, threshold),
-	m_middleSensor(middlePin, threshold)
+	m_rightSensor(rightPin, threshold)
 {
 
 }
@@ -28,12 +26,11 @@ trackingDirection LineFollower::TrackLine()
 {
 	int leftVal = m_leftSensor.Read();
 	int rightVal = m_rightSensor.Read();
-	int midVal = m_middleSensor.Read();
 
-	if (leftVal == kOffLine && rightVal == kOffLine && midVal == kOnLine)
+	if (leftVal == kOffLine && rightVal == kOffLine)
 	{
 		m_lastDirection = kTrackStraight;
-		return kTrackStraight;
+		return kMissedLine;
 	}
 	else if (leftVal == kOnLine && rightVal == kOffLine)
 	{

@@ -8,6 +8,7 @@
 #include "LineSensor.h"
 #include "Servo.h"
 #include "LimitSwitch.h"
+
 ///The different motors that are attached to the robot.
 enum Motors
 {
@@ -30,7 +31,9 @@ enum DigitalInputs
 enum AnalogInputs
 {
 	kLineSensorLeft = 1,
-	kLineSensorRight = 2
+	kLineSensorRight = 2,
+	kRangefinderLeft = 3,
+	kRangefinderRight = 4
 };
 
 ///The joystick axis on the robot.
@@ -43,6 +46,22 @@ enum JoystickAxis
 	kBackLeftButtons = 5, ///< The joystick's back left buttons.
 	kBackRightButtons = 6 ///< The joystick's back right buttons.
 };
+
+enum AutonomousState
+{
+	kStart,
+	kTrackToFieldCenter,
+	kTurningLeft,
+	kTrackToCenterLine,
+	kTrackToPOSE,
+	kClimbPOSE,
+	kDone
+};
+
+///Line following thresholds. 
+static const int kWhiteLineThreshold = 310;
+static const int kColoredLineThreshold = 330;
+static const int kPOSEThreshold = 500; //@TODO: Calculate This
 
 /**
  * @brief Tells whether or not a value is within a certain tolerance of another value.
@@ -60,6 +79,17 @@ inline bool WithinTolerance(T value, T desiredValue, T tolerance)
     	return false;
 };
 
+/**
+ * @brief Applies a deadband to a number.
+ * @details Applies a deadband to a number. Useful
+ * for joystick input and motor output.
+ * 
+ * @param value The value to apply the deadband to.
+ * @param deadbandUpper The upper limit of the deadband.
+ * @param deadbandLower The lower limit of the deadband.
+ * @param deadbandMid The middle value of the deadband.
+ * @return Returns the deadbanded value.
+ */
 template <typename T>
 inline T Deadband(T value, T deadbandUpper, T deadbandLower, T deadbandMid)
 {

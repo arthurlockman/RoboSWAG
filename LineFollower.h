@@ -9,21 +9,21 @@ enum trackingDirection
 	kTrackStraight = 1, ///<Track straight.
 	kTrackRight, ///< Track to the right.
 	kTrackLeft, ///< Track to the left.
-	kStop ///< Stop tracking.
+	kStop, ///< Stop tracking.
+	kMissedLine ///< Missed line.
 };
 
 class LineFollower
 {
 public:
-	LineFollower(int threshold, int leftPin, int rightPin, int middlePin);
+	LineFollower(int threshold, int leftPin, int rightPin);
 	trackingDirection TrackLine();
 	void Reset();
-private:
-	trackingDirection m_lastDirection;
 	
 	LineSensor m_leftSensor;
 	LineSensor m_rightSensor;
-	LineSensor m_middleSensor;
+private:
+	trackingDirection m_lastDirection;
 
 	static const int kOffLine = 0;
 	static const int kOnLine = 1;

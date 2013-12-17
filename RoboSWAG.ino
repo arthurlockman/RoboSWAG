@@ -12,6 +12,11 @@ Servo m_pickupMotor;
 LimitSwitch m_lifterLowerLimit(kLifterLowerLimit);
 LimitSwitch m_lifterUpperLimit(kLifterUpperLimit);
 
+LineFollower m_lineFollower(kWhiteLineThreshold, kLineSensorLeft, kLineSensorRight);
+
+UltrasonicRangefinder m_leftRangefinder(kRangefinderLeft);
+UltrasonicRangefinder m_rightRangefinder(kRangefinderRight);
+
 void setup()
 {
 	Serial.begin(115200);
@@ -25,8 +30,8 @@ void setup()
 
 void loop()
 {
-	//autonomous(20);
-	teleop(500);
+	autonomous(20);
+	teleop(180);
 }
 
 /**
@@ -43,9 +48,62 @@ void autonomous(unsigned long timeSeconds)
 	unsigned long time = timeSeconds * 1000;
 	unsigned long startTime = millis ();
 
+	int stopTracking = 0;
+	AutonomousState m_state;
+
 	while (millis () - startTime <= time) 
 	{
-		//@TODO: Enter autonomous code.
+		trackingDirection lineVal = m_lineFollower.TrackLine();	
+		switch (m_state) 
+		{
+			case kStart:
+				m_state = kTrackToFieldCenter;
+				break;
+			case kTrackToFieldCenter:
+				driveStraight(m_leftRangefinder, m_rightRangefinder, 50);
+				if (lineVal == kStop)
+				{
+					StopRobot();
+					m_state = kTurningLeft;
+				}
+				break;
+			case kTurningLeft:
+				TankDrive(90, -90);
+				if (lineVal == kMissedLine)
+				{
+					StopRobot();
+					m_state = kTrackToCenterLine;
+				}
+				break;
+			case kTrackToCenterLine:
+				TankDrive(40,40);
+				if (lineVal == kStop)
+				{
+					StopRobot();
+					m_state = kTrackToPOSE;
+				}
+				break;
+			case kTrackToPOSE:
+				driveStraight(m_leftRangefinder, m_rightRangefinder, 40);
+				if (m_leftRangefinder.GetDistanceInCM() > 80 && 
+					m_rightRangefinder.GetDistanceInCM() > 80)
+				{
+					StopRobot();
+					m_state = kClimbPOSE;
+				}
+				break;
+			case kClimbPOSE:
+				TankDrive(90,90);
+				if(m_lineFollower.m_leftSensor.RawRead() > kPOSEThreshold && 
+					m_lineFollower.m_rightSensor.RawRead() > kPOSEThreshold)
+				{
+					StopRobot();
+					m_state = kDone;
+				}
+				break;
+			case kDone:
+				break;
+		}
 	}
 }
 
@@ -73,62 +131,6 @@ void teleop(unsigned long timeSeconds)
 }
 
 /**
- * @brief Track a line.
- * @details Tracks a line on the field to a stopping
- * point. By default, the method executes once and 
- * directs the robot in the correct direction. If
- * the parameter is set to true, then the robot will 
- * drive on the line until it reaches a stopping line.
- * 
- * @param stopOnLine Whether or not to drive until 
- * a stopping line is found. 
- */
-void trackLine(LineFollower lineFollower, 
-	boolean stopOnLine = false)
-{
-	int stopTracking = 1;
-	if (stopOnLine)
-	{
-		while(stopTracking)
-		{
-			switch (lineFollower.TrackLine()) {
-			    case kTrackRight:
-			    	TankDrive(10,90);
-			    	break;
-			    case kTrackLeft:
-			    	TankDrive(90,10);
-			    	break;
-			    case kTrackStraight:
-			    	TankDrive(60,60);
-			    	break;
-			    case kStop:
-			    	StopRobot();
-			    	stopTracking = 0;
-			    	break;
-			}
-		}
-	}
-	else
-	{
-		switch (lineFollower.TrackLine()) {
-		    case kTrackRight:
-		    	TankDrive(10,90);
-		    	break;
-		    case kTrackLeft:
-		    	TankDrive(90,10);
-		    	break;
-		    case kTrackStraight:
-		    	TankDrive(60,60);
-		    	break;
-		    case kStop:
-		    	StopRobot();
-		    	stopTracking = 0;
-		    	break;
-		}
-	}
-}
-
-/**
  * @brief Drive robot in a straight line.
  * @details Drive the robot in a straight line towards
  * an object. This requires that the ultrasonic sensors 
@@ -141,11 +143,21 @@ void trackLine(LineFollower lineFollower,
 void driveStraight(UltrasonicRangefinder left, 
 	UltrasonicRangefinder right, int speed)
 {
-	int leftVal = left.GetDistanceInCM();
-	int rightVal = right.GetDistanceInCM();
-	if(leftVal > rightVal) { TankDrive(speed, speed + 20); }
-	else if (rightVal > leftVal) { TankDrive(speed + 20, speed); }
-	else if (rightVal == leftVal) { TankDrive(speed, speed); }
+	float leftVal = left.GetDistanceInCM();
+	float rightVal = right.GetDistanceInCM();
+
+	if(leftVal > rightVal) 
+	{ 
+		TankDrive(speed, speed + int(leftVal - rightVal)); 
+	}
+	else if (rightVal > leftVal) 
+	{ 
+		TankDrive(speed + int(rightVal - leftVal), speed); 
+	}
+	else if (WithinTolerance(rightVal - leftVal, float(0.0), float(3.0))) 
+	{ 
+		TankDrive(speed, speed); 
+	}
 }
 
 /**
@@ -288,7 +300,11 @@ void ManualArmControl(PPM &ppm)
 
 	if((m_lifterLowerLimit.Pressed() == 1) && armSpeed > 90)
 		m_armMotor.write(armSpeed);
-	else if((m_lifterLowerLimit.Pressed() != 1))
+	else if ((m_lifterUpperLimit.Pressed() == 1) && armSpeed < 90)
+		m_armMotor.write(armSpeed);
+	else if ((m_lifterUpperLimit.Pressed() == 1) && armSpeed > 90)
+		m_armMotor.write(100);
+	else if((m_lifterLowerLimit.Pressed() != 1) && (m_lifterUpperLimit.Pressed() != 1))
 		m_armMotor.write(armSpeed);
 	m_pickupMotor.write(pickupSpeed);
 }
