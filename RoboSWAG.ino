@@ -19,7 +19,10 @@ UltrasonicRangefinder m_rightRangefinder(kRangefinderRight);
 
 void setup()
 {
-	Serial.begin(115200);
+	#if DEBUG
+		Serial.begin(115200);
+	#endif
+
 	m_frontLeftMotor.attach(kFrontLeftMotor);
 	m_frontRightMotor.attach(kFrontRightMotor);
 	m_rearLeftMotor.attach(kRearLeftMotor);
@@ -44,66 +47,71 @@ void loop()
  */
 void autonomous(unsigned long timeSeconds) 
 {
-	while(0 == controller.getChannel (1)) {}
+	// while(0 == controller.getChannel (1)) {}
 	unsigned long time = timeSeconds * 1000;
 	unsigned long startTime = millis ();
 
-	int stopTracking = 0;
-	AutonomousState m_state;
-
+	AutonomousState m_state = kStart;
+	unsigned long timer = 0.0;
 	while (millis () - startTime <= time) 
 	{
-		trackingDirection lineVal = m_lineFollower.TrackLine();	
-		switch (m_state) 
+		trackingDirection m_lineDirection = m_lineFollower.TrackLine();
+		switch(m_state)
 		{
 			case kStart:
-				m_state = kTrackToFieldCenter;
+				TankDrive(40,60);
+				m_state = kDriveToCenter;
 				break;
-			case kTrackToFieldCenter:
-				driveStraight(m_leftRangefinder, m_rightRangefinder, 50);
-				if (lineVal == kStop)
+			case kDriveToCenter:
+				if (m_lineDirection == kStop || m_lineDirection == kTrackRight || m_lineDirection == kTrackLeft)
 				{
+					TankDrive(-10,-10);
 					StopRobot();
-					m_state = kTurningLeft;
+					m_state = kDriveToPose;
 				}
 				break;
-			case kTurningLeft:
-				TankDrive(90, -90);
-				if (lineVal == kMissedLine)
+			case kDriveToPose:
+				if (m_leftRangefinder.GetDistanceInCM() < 8.0 && m_rightRangefinder.GetDistanceInCM() < 8.0)
+				{
+					m_lineDirection = kStop;
+				}
+
+				if (m_lineDirection == kTrackRight)
+				{
+					TankDrive(-5,50);
+				}
+				else if (m_lineDirection == kTrackLeft)
+				{
+					TankDrive(50,-5);
+				}
+
+				if ((m_lineFollower.m_rightSensor.RawRead() < 875) && 
+					(m_lineFollower.m_leftSensor.RawRead() < 875) &&
+					(m_lineFollower.m_rightSensor.RawRead() > 800) && 
+					(m_lineFollower.m_leftSensor.RawRead() > 800))
 				{
 					StopRobot();
-					m_state = kTrackToCenterLine;
+					m_state = kPOSERobot;
+					timer = millis();
 				}
 				break;
-			case kTrackToCenterLine:
-				TankDrive(40,40);
-				if (lineVal == kStop)
-				{
-					StopRobot();
-					m_state = kTrackToPOSE;
-				}
-				break;
-			case kTrackToPOSE:
-				driveStraight(m_leftRangefinder, m_rightRangefinder, 40);
-				if (m_leftRangefinder.GetDistanceInCM() > 80 && 
-					m_rightRangefinder.GetDistanceInCM() > 80)
-				{
-					StopRobot();
-					m_state = kClimbPOSE;
-				}
-				break;
-			case kClimbPOSE:
+			case kPOSERobot:
 				TankDrive(90,90);
-				if(m_lineFollower.m_leftSensor.RawRead() > kPOSEThreshold && 
-					m_lineFollower.m_rightSensor.RawRead() > kPOSEThreshold)
+
+				if(millis() - timer > 2000)
 				{
+					TankDrive(-10,-10);
 					StopRobot();
 					m_state = kDone;
 				}
 				break;
 			case kDone:
+				//Done.
 				break;
 		}
+		// Serial.println(m_leftRangefinder.GetDistanceInCM());
+		// Serial.println(m_rightRangefinder.GetDistanceInCM());
+		// Serial.println(m_lineFollower.m_rightSensor.RawRead());
 	}
 }
 
@@ -148,11 +156,11 @@ void driveStraight(UltrasonicRangefinder left,
 
 	if(leftVal > rightVal) 
 	{ 
-		TankDrive(speed, speed + int(leftVal - rightVal)); 
+		TankDrive(speed, speed + int(leftVal - rightVal)*10); 
 	}
 	else if (rightVal > leftVal) 
 	{ 
-		TankDrive(speed + int(rightVal - leftVal), speed); 
+		TankDrive(speed + int(rightVal - leftVal)*10, speed); 
 	}
 	else if (WithinTolerance(rightVal - leftVal, float(0.0), float(3.0))) 
 	{ 

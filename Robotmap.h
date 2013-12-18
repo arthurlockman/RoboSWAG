@@ -9,6 +9,8 @@
 #include "Servo.h"
 #include "LimitSwitch.h"
 
+#define DEBUG 1
+
 ///The different motors that are attached to the robot.
 enum Motors
 {
@@ -50,18 +52,17 @@ enum JoystickAxis
 enum AutonomousState
 {
 	kStart,
-	kTrackToFieldCenter,
-	kTurningLeft,
-	kTrackToCenterLine,
-	kTrackToPOSE,
-	kClimbPOSE,
+	kDriveToCenter,
+	kDriveToPose,
+	kPOSERobot,
 	kDone
 };
 
 ///Line following thresholds. 
-static const int kWhiteLineThreshold = 310;
-static const int kColoredLineThreshold = 330;
+static const int kWhiteLineThreshold = 475;
+static const int kColoredLineThreshold = 850;
 static const int kPOSEThreshold = 500; //@TODO: Calculate This
+static const float kDOTDistance = 13.65; //CM
 
 /**
  * @brief Tells whether or not a value is within a certain tolerance of another value.
