@@ -25,17 +25,17 @@ enum Motors
 ///The digital inputs on the robot.
 enum DigitalInputs
 {
-	kLifterLowerLimit = 22,
-	kLifterUpperLimit = 23
+	kLifterLowerLimit = 22, ///< The upper limit switch for the lifter arm.
+	kLifterUpperLimit = 23 ///< The lower limit switch for the lifter arm.
 };
 
 ///The Analog inputs on the robot.
 enum AnalogInputs
 {
-	kLineSensorLeft = 1,
-	kLineSensorRight = 2,
-	kRangefinderLeft = 3,
-	kRangefinderRight = 4
+	kLineSensorLeft = 1, ///< The input for the left line sensor.
+	kLineSensorRight = 2, ///< The input for the right line sensor.
+	kRangefinderLeft = 3, ///< The input for the left rangefinder.
+	kRangefinderRight = 4 ///< The input for the right rangefinder.
 };
 
 ///The joystick axis on the robot.
@@ -51,20 +51,20 @@ enum JoystickAxis
 
 enum AutonomousState
 {
-	kStart,
-	kDriveToCenter,
-	kDriveToPose,
-	kPOSERobot,
-	kPOSERobot2,
-	kDone
+	kStart, ///< State at the start of autonomous.
+	kDriveToCenter, ///< Begin driving towards the POSE.
+	kDriveToPose, ///< Drive to within range of the POSE.
+	kPOSERobot, ///< Put the robot onto the lip of the pose.
+	kPOSERobot2, ///< Drive into scoring position.
+	kDone ///< End of autonomous. 
 };
 
-///Line following thresholds. 
-static const int kWhiteLineThreshold = 475;
-static const int kColoredLineThreshold = 850;
-static const int kPOSEUpperThreshold = 890;
-static const int kPOSELowerThreshold = 800;
-static const float kDOTDistance = 13.65; //CM
+/// Line following thresholds. 
+static const int kWhiteLineThreshold = 475; ///< The threshold for detecting a white line.
+static const int kColoredLineThreshold = 850; ///< The threshold for detecting a colored line.
+static const int kPOSEUpperThreshold = 890; ///< The upper threshold for the POSE.
+static const int kPOSELowerThreshold = 800; ///< The lower threshold for the POSE.
+static const float kDOTDistance = 13.65;  ///< The distance to stop from the DOT.
 
 /**
  * @brief Tells whether or not a value is within a certain tolerance of another value.

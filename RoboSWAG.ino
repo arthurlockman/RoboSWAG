@@ -39,7 +39,10 @@ void loop()
 /**
  * @brief Autonomous mode.
  * @details Operates the robot in autonomous mode for
- * the specified length of time.
+ * the specified length of time. This autonomous mode
+ * starts in either of the coalition starting zones
+ * and drives to the POSE, then scores the robot on
+ * top of it. 
  * 
  * @param timeSeconds The length of time to run
  * autonomous mode for.
