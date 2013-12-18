@@ -29,8 +29,7 @@ trackingDirection LineFollower::TrackLine()
 
 	if (leftVal == kOffLine && rightVal == kOffLine)
 	{
-		m_lastDirection = kTrackStraight;
-		return kMissedLine;
+		return m_lastDirection;
 	}
 	else if (leftVal == kOnLine && rightVal == kOffLine)
 	{

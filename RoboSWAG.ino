@@ -12,16 +12,15 @@ Servo m_pickupMotor;
 LimitSwitch m_lifterLowerLimit(kLifterLowerLimit);
 LimitSwitch m_lifterUpperLimit(kLifterUpperLimit);
 
-LineFollower m_lineFollower(kWhiteLineThreshold, kLineSensorLeft, kLineSensorRight);
+LineFollower m_lineFollower(kWhiteLineThreshold, 
+	kLineSensorLeft, kLineSensorRight);
 
 UltrasonicRangefinder m_leftRangefinder(kRangefinderLeft);
 UltrasonicRangefinder m_rightRangefinder(kRangefinderRight);
 
 void setup()
 {
-	#if DEBUG
-		Serial.begin(115200);
-	#endif
+	Serial.begin(115200);
 
 	m_frontLeftMotor.attach(kFrontLeftMotor);
 	m_frontRightMotor.attach(kFrontRightMotor);
@@ -47,12 +46,13 @@ void loop()
  */
 void autonomous(unsigned long timeSeconds) 
 {
-	// while(0 == controller.getChannel (1)) {}
+	while(0 == controller.getChannel (1)) {}
 	unsigned long time = timeSeconds * 1000;
 	unsigned long startTime = millis ();
 
 	AutonomousState m_state = kStart;
 	unsigned long timer = 0.0;
+
 	while (millis () - startTime <= time) 
 	{
 		trackingDirection m_lineDirection = m_lineFollower.TrackLine();
@@ -63,55 +63,39 @@ void autonomous(unsigned long timeSeconds)
 				m_state = kDriveToCenter;
 				break;
 			case kDriveToCenter:
-				if (m_lineDirection == kStop || m_lineDirection == kTrackRight || m_lineDirection == kTrackLeft)
-				{
-					TankDrive(-10,-10);
-					StopRobot();
-					m_state = kDriveToPose;
-				}
+				TankDrive(90,90);
+				m_state = kDriveToPose;
 				break;
 			case kDriveToPose:
-				if (m_leftRangefinder.GetDistanceInCM() < 8.0 && m_rightRangefinder.GetDistanceInCM() < 8.0)
+				if (m_leftRangefinder.GetDistanceInCM() < 15.0 
+					&& m_rightRangefinder.GetDistanceInCM() < 15.0)
 				{
-					m_lineDirection = kStop;
-				}
-
-				if (m_lineDirection == kTrackRight)
-				{
-					TankDrive(-5,50);
-				}
-				else if (m_lineDirection == kTrackLeft)
-				{
-					TankDrive(50,-5);
-				}
-
-				if ((m_lineFollower.m_rightSensor.RawRead() < 875) && 
-					(m_lineFollower.m_leftSensor.RawRead() < 875) &&
-					(m_lineFollower.m_rightSensor.RawRead() > 800) && 
-					(m_lineFollower.m_leftSensor.RawRead() > 800))
-				{
-					StopRobot();
 					m_state = kPOSERobot;
-					timer = millis();
 				}
 				break;
 			case kPOSERobot:
-				TankDrive(90,90);
-
-				if(millis() - timer > 2000)
+				if ((m_lineFollower.m_rightSensor.RawRead() < kPOSEUpperThreshold) && 
+					(m_lineFollower.m_leftSensor.RawRead() < kPOSEUpperThreshold) &&
+					(m_lineFollower.m_rightSensor.RawRead() > kPOSELowerThreshold) && 
+					(m_lineFollower.m_leftSensor.RawRead() > kPOSELowerThreshold))
 				{
-					TankDrive(-10,-10);
+					StopRobot();
+					m_state = kPOSERobot2;
+					timer = millis();
+					TankDrive(90,90);
+				}
+				break;
+			case kPOSERobot2:
+				if (millis() - timer > 1300)
+				{
+					TankDrive(-20,-20);
 					StopRobot();
 					m_state = kDone;
 				}
-				break;
 			case kDone:
 				//Done.
 				break;
 		}
-		// Serial.println(m_leftRangefinder.GetDistanceInCM());
-		// Serial.println(m_rightRangefinder.GetDistanceInCM());
-		// Serial.println(m_lineFollower.m_rightSensor.RawRead());
 	}
 }
 
@@ -312,7 +296,8 @@ void ManualArmControl(PPM &ppm)
 		m_armMotor.write(armSpeed);
 	else if ((m_lifterUpperLimit.Pressed() == 1) && armSpeed > 90)
 		m_armMotor.write(100);
-	else if((m_lifterLowerLimit.Pressed() != 1) && (m_lifterUpperLimit.Pressed() != 1))
+	else if((m_lifterLowerLimit.Pressed() != 1) && 
+		(m_lifterUpperLimit.Pressed() != 1))
 		m_armMotor.write(armSpeed);
 	m_pickupMotor.write(pickupSpeed);
 }

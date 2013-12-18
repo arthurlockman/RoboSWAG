@@ -55,13 +55,15 @@ enum AutonomousState
 	kDriveToCenter,
 	kDriveToPose,
 	kPOSERobot,
+	kPOSERobot2,
 	kDone
 };
 
 ///Line following thresholds. 
 static const int kWhiteLineThreshold = 475;
 static const int kColoredLineThreshold = 850;
-static const int kPOSEThreshold = 500; //@TODO: Calculate This
+static const int kPOSEUpperThreshold = 890;
+static const int kPOSELowerThreshold = 800;
 static const float kDOTDistance = 13.65; //CM
 
 /**
