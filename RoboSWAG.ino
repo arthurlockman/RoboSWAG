@@ -54,50 +54,57 @@ void autonomous(unsigned long timeSeconds)
 	unsigned long startTime = millis ();
 
 	AutonomousState m_state = kStart;
-	unsigned long timer = 0.0;
+	unsigned long timer = millis();
 
 	while (millis () - startTime <= time) 
 	{
-		trackingDirection m_lineDirection = m_lineFollower.TrackLine();
-		switch(m_state)
+		if (millis() - timer < 11000)
 		{
-			case kStart:
-				TankDrive(40,60);
-				m_state = kDriveToCenter;
-				break;
-			case kDriveToCenter:
-				TankDrive(90,90);
-				m_state = kDriveToPose;
-				break;
-			case kDriveToPose:
-				if (m_leftRangefinder.GetDistanceInCM() < 15.0 
-					&& m_rightRangefinder.GetDistanceInCM() < 15.0)
-				{
-					m_state = kPOSERobot;
-				}
-				break;
-			case kPOSERobot:
-				if ((m_lineFollower.m_rightSensor.RawRead() < kPOSEUpperThreshold) && 
-					(m_lineFollower.m_leftSensor.RawRead() < kPOSEUpperThreshold) &&
-					(m_lineFollower.m_rightSensor.RawRead() > kPOSELowerThreshold) && 
-					(m_lineFollower.m_leftSensor.RawRead() > kPOSELowerThreshold))
-				{
-					StopRobot();
-					m_state = kPOSERobot2;
-					timer = millis();
+			trackingDirection m_lineDirection = m_lineFollower.TrackLine();
+			switch(m_state)
+			{
+				case kStart:
+					TankDrive(40,60);
+					m_state = kDriveToCenter;
+					break;
+				case kDriveToCenter:
 					TankDrive(90,90);
-				}
-				break;
-			case kPOSERobot2:
-				if (millis() - timer > 1300)
-				{
-					TankDrive(-20,-20);
-					StopRobot();
-					m_state = kDone;
-				}
-			case kDone:
-				//Done.
-				break;
+					m_state = kDriveToPose;
+					break;
+				case kDriveToPose:
+					if (m_leftRangefinder.GetDistanceInCM() < 15.0 
+						&& m_rightRangefinder.GetDistanceInCM() < 15.0)
+					{
+						m_state = kPOSERobot;
+					}
+					break;
+				case kPOSERobot:
+					if ((m_lineFollower.m_rightSensor.RawRead() < kPOSEUpperThreshold) && 
+						(m_lineFollower.m_leftSensor.RawRead() < kPOSEUpperThreshold) &&
+						(m_lineFollower.m_rightSensor.RawRead() > kPOSELowerThreshold) && 
+						(m_lineFollower.m_leftSensor.RawRead() > kPOSELowerThreshold))
+					{
+						StopRobot();
+						m_state = kPOSERobot2;
+						timer = millis();
+						TankDrive(90,90);
+					}
+					break;
+				case kPOSERobot2:
+					if (millis() - timer > 1300)
+					{
+						TankDrive(-20,-20);
+						StopRobot();
+						m_state = kDone;
+					}
+				case kDone:
+					//Done.
+					break;
+			}
+		}
+		else
+		{
+			StopRobot();
 		}
 	}
 }
